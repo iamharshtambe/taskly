@@ -9,18 +9,22 @@ function renderTodos() {
       todoListHtml += `
       <p>
          ${name} ${dueDate} 
-         <button onclick='
-            todoList.splice(${index}, 1);
-            renderTodos();
-         '>Delete</button>
+         <button class="delete-task">Delete</button>
       </p>
       `;
    });
 
    document.querySelector('.js-tasks').innerHTML = todoListHtml;
+
+   document.querySelectorAll('.delete-task').forEach((deleteButton, index) => {
+      deleteButton.addEventListener('click', () => {
+         todoList.splice(index, 1);
+         renderTodos();
+      });
+   });
 }
 
-function addTask() {
+document.querySelector('.add-task').addEventListener('click', () => {
    const inputElement = document.querySelector('.js-input');
    const name = inputElement.value;
 
@@ -33,4 +37,4 @@ function addTask() {
 
    inputElement.value = '';
    dateElement.value = '';
-}
+});
