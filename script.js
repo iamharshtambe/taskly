@@ -1,7 +1,4 @@
-const todoList = [
-   { name: 'do dinner', dueDate: '2025-3-29' },
-   { name: 'do dance', dueDate: '2025-3-29' },
-];
+const todoList = [];
 
 function renderTodos() {
    let todoListHtml = '';
@@ -26,11 +23,15 @@ function renderTodos() {
 
 function addTask() {
    const inputElement = document.querySelector('.js-input');
-   const inputValue = inputElement.value;
+   const name = inputElement.value;
 
-   todoList.push(inputValue);
+   const dateElement = document.querySelector('.js-date');
+   const dueDate = dateElement.value;
+
+   todoList.push({ name, dueDate });
 
    renderTodos();
 
    inputElement.value = '';
+   dateElement.value = '';
 }
