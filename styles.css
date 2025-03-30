@@ -1,88 +1,189 @@
-/* General Styles */
+/* Base Styles and Variables */
+:root {
+   --primary-color: #4a6cf7;
+   --primary-light: #e8eeff;
+   --dark-color: #2c3e50;
+   --light-color: #ffffff;
+   --gray-light: #f5f7fa;
+   --gray-medium: #e2e8f0;
+   --success-color: #10b981;
+   --danger-color: #ef4444;
+   --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+   --border-radius: 8px;
+   --transition: all 0.3s ease;
+}
+
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 body {
-   font-family: 'Poppins', sans-serif;
-   background-color: #f4f4f4;
+   background-color: var(--gray-light);
+   color: var(--dark-color);
+   max-width: 800px;
+   margin: 0 auto;
+   padding: 20px;
+   min-height: 100vh;
    display: flex;
    flex-direction: column;
-   align-items: center;
-   justify-content: center;
-   height: 100vh;
-   margin: 0;
 }
 
-/* Input Fields and Button */
-input {
-   padding: 10px;
-   border: 2px solid #007bff;
-   border-radius: 5px;
-   font-size: 16px;
+/* Header (Adding this even though it's not in your HTML for more style) */
+body::before {
+   content: 'Taskly';
+   font-size: 2.5rem;
+   font-weight: bold;
+   color: var(--primary-color);
+   margin-bottom: 20px;
+   text-align: center;
+   display: block;
+   letter-spacing: 1px;
+}
+
+/* Input Group Styling */
+.js-input,
+.js-date {
+   width: 100%;
+   padding: 14px 16px;
+   border: 2px solid var(--gray-medium);
+   border-radius: var(--border-radius);
+   font-size: 1rem;
+   transition: var(--transition);
+   margin-bottom: 10px;
    outline: none;
-   margin: 5px;
 }
 
-button {
-   background-color: #007bff;
-   color: white;
-   padding: 10px 15px;
+.js-input:focus,
+.js-date:focus {
+   border-color: var(--primary-color);
+   box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.2);
+}
+
+.js-input::placeholder {
+   color: #a0aec0;
+}
+
+/* Add Task Button */
+.add-task {
+   background-color: var(--primary-color);
+   color: var(--light-color);
+   padding: 14px 24px;
    border: none;
-   border-radius: 5px;
-   font-size: 16px;
+   border-radius: var(--border-radius);
+   font-size: 1rem;
+   font-weight: 600;
    cursor: pointer;
-   transition: 0.3s;
+   transition: var(--transition);
+   width: 100%;
+   margin-bottom: 20px;
 }
 
-button:hover {
-   background-color: #0056b3;
+.add-task:hover {
+   background-color: #3a56d4;
+   transform: translateY(-2px);
+   box-shadow: var(--shadow);
 }
 
-/* Task List */
+.add-task:active {
+   transform: translateY(0);
+}
+
+/* Task List Styling */
 .js-tasks {
-   width: 300px;
-   margin-top: 20px;
+   background-color: var(--light-color);
+   border-radius: var(--border-radius);
+   overflow: hidden;
+   box-shadow: var(--shadow);
 }
 
 .js-tasks p {
-   background: white;
-   padding: 10px;
-   border-radius: 5px;
    display: flex;
    justify-content: space-between;
    align-items: center;
-   margin-bottom: 10px;
-   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+   padding: 16px;
+   border-bottom: 1px solid var(--gray-medium);
+   transition: var(--transition);
 }
 
-.js-tasks p button {
-   background-color: #ff4d4d;
+.js-tasks p:last-child {
+   border-bottom: none;
+}
+
+.js-tasks p:hover {
+   background-color: var(--primary-light);
+}
+
+/* Delete Button */
+.delete-task {
+   background-color: var(--danger-color);
+   color: var(--light-color);
    border: none;
-   padding: 5px 10px;
+   border-radius: var(--border-radius);
+   padding: 8px 12px;
    cursor: pointer;
-   font-size: 14px;
-   border-radius: 5px;
+   font-size: 0.875rem;
+   transition: var(--transition);
 }
 
-.js-tasks p button:hover {
-   background-color: #cc0000;
+.delete-task:hover {
+   background-color: #dc2626;
+   transform: scale(1.05);
 }
 
-/* Header */
-h1 {
-   color: #007bff;
-   font-size: 24px;
-   margin-bottom: 10px;
+/* No Tasks Message */
+.js-tasks:empty::after {
+   content: 'No tasks yet. Add one above!';
+   display: block;
+   text-align: center;
+   padding: 20px;
+   color: #94a3b8;
+   font-style: italic;
 }
 
-/* Adding Some Emojis */
-.js-input::placeholder {
-   content: '\270F\FE0F Enter your task';
+/* Responsive Design */
+@media (min-width: 640px) {
+   body {
+      padding: 40px;
+   }
+
+   /* Create a nice layout for larger screens */
+   .input-container {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+   }
+
+   .js-input {
+      flex: 2;
+      margin-bottom: 0;
+   }
+
+   .js-date {
+      flex: 1;
+      margin-bottom: 0;
+   }
+
+   .add-task {
+      flex: 0.7;
+      margin-bottom: 0;
+   }
 }
 
-.js-tasks p::before {
-   content: '\1F4DD'; /* Memo emoji */
-   margin-right: 5px;
+/* Add some animations */
+@keyframes fadeIn {
+   from {
+      opacity: 0;
+      transform: translateY(10px);
+   }
+   to {
+      opacity: 1;
+      transform: translateY(0);
+   }
 }
 
-.js-tasks p button::before {
-   content: '\1F5D1'; /* Trash emoji */
-   margin-right: 5px;
+.js-tasks p {
+   animation: fadeIn 0.3s ease-out;
 }
